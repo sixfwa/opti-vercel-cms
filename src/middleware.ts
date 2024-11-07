@@ -41,41 +41,6 @@ export function middleware(request: NextRequest) {
     contentSecurityPolicyHeaderValue
   );
 
-  const allCookies = request.cookies.getAll();
-
-  // Log all cookies
-  console.log("All cookies:", allCookies);
-
-  // If you want to see the cookies in a more readable format:
-  allCookies.forEach((cookie: any) => {
-    console.log(`${cookie.name}: ${cookie.value}`);
-  });
-
-  const headers = request.headers;
-
-  // Convert headers to a regular object
-  const headerObj: { [key: string]: string } = {};
-  headers.forEach((value: any, key: any) => {
-    headerObj[key] = value;
-  });
-
-  // Log the headers
-  console.log("Request Headers:");
-  console.log(JSON.stringify(headerObj, null, 2));
-
-  const nextUrl = request.headers.get("next-url");
-
-  // If "next-url" is not "/preview", perform the redirect
-  if (nextUrl && !nextUrl.includes("preview")) {
-    if (!request.nextUrl.pathname.startsWith("/en")) {
-      const newUrl = request.nextUrl.clone();
-      newUrl.pathname = "/en" + newUrl.pathname;
-      return NextResponse.redirect(newUrl, {
-        status: 308,
-      });
-    }
-  }
-
   // Make sure we're always in English - multi langauge is not supported yet
   //   if (!request.nextUrl.pathname.startsWith("/en")) {
   //     const newUrl = request.nextUrl.clone();
