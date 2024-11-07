@@ -65,10 +65,8 @@ export function middleware(request: NextRequest) {
 
   const nextUrl = request.headers.get("next-url");
 
-  if (!nextUrl) return NextResponse.next();
-
   // If "next-url" is not "/preview", perform the redirect
-  if (!nextUrl.includes("preview")) {
+  if (nextUrl && !nextUrl.includes("preview")) {
     if (!request.nextUrl.pathname.startsWith("/en")) {
       const newUrl = request.nextUrl.clone();
       newUrl.pathname = "/en" + newUrl.pathname;
