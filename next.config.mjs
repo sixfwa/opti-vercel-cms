@@ -14,6 +14,15 @@ const nextConfig = {
           }
         ],
     },
+    async rewrites() {
+      return [
+        {
+          // Rewrite the root path to /en
+          source: '/',
+          destination: '/en',
+        },
+      ];
+    },
 };
 
 /**
