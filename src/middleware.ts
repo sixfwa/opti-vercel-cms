@@ -51,6 +51,18 @@ export function middleware(request: NextRequest) {
     console.log(`${cookie.name}: ${cookie.value}`);
   });
 
+  const headers = request.headers;
+
+  // Convert headers to a regular object
+  const headerObj: { [key: string]: string } = {};
+  headers.forEach((value: any, key: any) => {
+    headerObj[key] = value;
+  });
+
+  // Log the headers
+  console.log("Request Headers:");
+  console.log(JSON.stringify(headerObj, null, 2));
+
   // Make sure we're always in English - multi langauge is not supported yet
   //   if (!request.nextUrl.pathname.startsWith("/en")) {
   //     const newUrl = request.nextUrl.clone();
