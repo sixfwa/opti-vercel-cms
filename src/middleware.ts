@@ -63,6 +63,19 @@ export function middleware(request: NextRequest) {
   console.log("Request Headers:");
   console.log(JSON.stringify(headerObj, null, 2));
 
+  const nextUrl = request.headers.get("next-url");
+
+  // If "next-url" is not "/preview", perform the redirect
+  if (nextUrl !== "/preview") {
+    if (!request.nextUrl.pathname.startsWith("/en")) {
+      const newUrl = request.nextUrl.clone();
+      newUrl.pathname = "/en" + newUrl.pathname;
+      return NextResponse.redirect(newUrl, {
+        status: 308,
+      });
+    }
+  }
+
   // Make sure we're always in English - multi langauge is not supported yet
   //   if (!request.nextUrl.pathname.startsWith("/en")) {
   //     const newUrl = request.nextUrl.clone();
