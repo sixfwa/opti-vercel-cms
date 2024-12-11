@@ -50,3 +50,5 @@ next-env.d.ts
 /src/site-config.ts
 
 certificates
+
+.env
